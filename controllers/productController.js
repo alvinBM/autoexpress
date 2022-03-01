@@ -49,6 +49,14 @@ const productController = {
         })
     },
 
+
+    /**
+     * Recuprer tous les produits by categori Id passer en param en solde (dieumerci)
+     */
+    getProduitsByCategorie : (req, res) => {
+
+    }
+
      /**
      * Ajouter un produit
      */
