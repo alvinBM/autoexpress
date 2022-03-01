@@ -20,7 +20,7 @@ const product = db.define('produit', {
     },
     quantity: {
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: false
     },
     category: {
         type: Sequelize.STRING,
