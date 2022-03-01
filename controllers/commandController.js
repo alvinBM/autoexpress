@@ -24,6 +24,40 @@ const commandController = {
    */
   getCommande : async (req, res) => {
 
+  },
+
+  /**Get commande by user */
+  getCommandeByUser : async (req, res) => {
+
+  },
+
+  /**
+   * createCommande (Krame)
+   */
+  createCommande : async (req, res) => {
+
+    let {user_id, amount, panier} = req.body;
+
+    //Create commande
+    //if success, commande.id => 
+    //Parcourir panier => createPanier
+
+
+    panier.forEach(element => {
+      createPanier(element, commande.id)
+    });
+
+    return res.status(200).json({
+      status: 200,
+      message : "Commande creee avec succes"
+    });
+
+
+  },
+
+  createPanier : (panier, comanndeId) => {
+
   }
+
 };
 export default commandController;
