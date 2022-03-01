@@ -1,6 +1,7 @@
 import express from "express";
 import bodyparser from 'body-parser';
 import routes from "./routes/index";
+import cors from "cors";
 
 const app = express();
 
@@ -13,6 +14,8 @@ const optionsRawData = {
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
 app.use(bodyparser.raw(optionsRawData));
+
+app.use(cors());
 
 
 app.use('/api', routes);
