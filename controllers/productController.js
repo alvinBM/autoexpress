@@ -28,10 +28,21 @@ const productController = {
     }, 
 
     /**
-     * Recuprer un cproduit
+     * Recuprer un cproduit (victore)
      */
 
     getProduit: (req,res)=>{
+        res.status(200).json({
+            status : 200,
+            produits : ""
+        })
+    },
+
+    /**
+     * Recuprer tous les produits en solde (victore)
+     */
+
+     getProduitsSoldes: (req,res)=>{
         res.status(200).json({
             status : 200,
             produits : ""
