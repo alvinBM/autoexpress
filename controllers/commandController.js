@@ -36,13 +36,28 @@ const commandController = {
    */
   createCommande : async (req, res) => {
 
+    let {user_id, amount, panier} = req.body;
+
+    //Create commande
+    //if success, commande.id => 
+    //Parcourir panier => createPanier
+
+
+    panier.forEach(element => {
+      createPanier(element, commande.id)
+    });
+
+    return res.status(200).json({
+      status: 200,
+      message : "Commande creee avec succes"
+    });
+
+
   },
 
-  /**
-   * Create panier
-   */
-   createCommande : async (panier) => {
+  createPanier : (panier, comanndeId) => {
 
-   }
+  }
+
 };
 export default commandController;
