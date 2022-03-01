@@ -24,6 +24,25 @@ const commandController = {
    */
   getCommande : async (req, res) => {
 
-  }
+  },
+
+  /**Get commande by user */
+  getCommandeByUser : async (req, res) => {
+
+  },
+
+  /**
+   * createCommande (Krame)
+   */
+  createCommande : async (req, res) => {
+
+  },
+
+  /**
+   * Create panier
+   */
+   createCommande : async (panier) => {
+
+   }
 };
 export default commandController;
