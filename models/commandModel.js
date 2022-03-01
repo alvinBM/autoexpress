@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import db from "../config/databases";
+import panier from "./panierModel";
 
 const command = db.define(
   "commande",
@@ -26,5 +27,7 @@ const command = db.define(
     freezeTableName: true
   }
 );
+
+command.hasMany(panier, {foreignKey: 'commande_id'})
 
 export default command;
