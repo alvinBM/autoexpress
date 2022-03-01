@@ -42,7 +42,7 @@ const categoryController = {
     /***
      * Recuperer les categories
      */
-     getCategories: (req, res) => {
+     getCategories: async (req, res) => {
             
         categoryModel.findAll({
             order : [['id','DESC']]
@@ -65,7 +65,7 @@ const categoryController = {
      /***
          * Recuperer une categorie
          */
-      getCategory: (req, res) => {
+      getCategory: async (req, res) => {
             
         let { id } = req.params;
         categoryModel.findOne({
@@ -77,7 +77,7 @@ const categoryController = {
             if(data){
                 res.status(200).json({
                     status : 200,
-                    artwork :data
+                    categorie :data
                 })
             }else{
                 res.status(200).json({

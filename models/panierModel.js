@@ -1,40 +1,37 @@
 import Sequelize from "sequelize";
 import db from "../config/databases";
+import commande from "./commandModel";
 
-const user = db.define(
-  "users",
+const panier = db.define(
+  "paniers",
   {
     created: {
       type: Sequelize.DATE,
       allowNull: false
     },
-    role: {
+    user_id: {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    name: {
+    commande_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    product_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    options: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    lastname: {
-      type: Sequelize.STRING,
+    quantity: {
+      type: Sequelize.INTEGER,
       allowNull: false
     },
-    email: {
-      type: Sequelize.STRING,
-      allowNull: true
-    },
-    phone: {
-      type: Sequelize.STRING,
+    price: {
+      type: Sequelize.FLOAT,
       allowNull: false
-    },
-    password: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    photo: {
-      type: Sequelize.STRING,
-      allowNull: true
     }
   },
   {
@@ -43,4 +40,4 @@ const user = db.define(
   }
 );
 
-export default user;
+export default panier;
