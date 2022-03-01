@@ -13,14 +13,15 @@ const optionProductController = {
         /*create: async (req, res) => {*/
             let { created, option_name, price} = req.body;
 
-            if(!created || !option_name || !price ){
+            if( !option_name || !price ){
                 return res.status(200).json({
                     status: 400,
                     message: "Veuillez remplir tous les champs obligatoire svp"
                 });
             }
 
-
+            let created = formatDate('yyyy-MM-dd hh:mm:ss', new Date());
+            
             let result = await optionModel.create({created, option_name, price}).then().catch(er => {
                 res.status(200).json({
                     status: 400,
@@ -46,7 +47,7 @@ const optionProductController = {
     getOptions : async (req, res) => {
 
         optionModel.findAll({
-            order : [['option_name','DESC']]
+            order : [['id','DESC']]
         }).then((data) => {
             res.status(200).json({
                 status : 200,
@@ -77,7 +78,7 @@ const optionProductController = {
             optionModel.findOne({
                 where : {
                     id : parseInt(id),
-                    option_name : option_name,
+                    // option_name : option_name,
                 }
             }).then((data)=>{
                 if(data){
