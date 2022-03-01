@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import db from "../config/databases";
+import commande from "./commandModel";
 
 const panier = db.define(
   "paniers",
@@ -12,7 +13,7 @@ const panier = db.define(
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    command_id: {
+    commande_id: {
       type: Sequelize.INTEGER,
       allowNull: false
     },
