@@ -4,8 +4,15 @@ import routes from "./routes/index";
 
 const app = express();
 
+const optionsRawData = {
+    inflate: true,
+    limit: '100kb',
+    type: '*/*'
+};
+
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
+app.use(bodyparser.raw(optionsRawData));
 
 
 app.use('/api', routes);
