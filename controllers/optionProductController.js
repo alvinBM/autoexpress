@@ -11,7 +11,7 @@ const optionProductController = {
 
 
         /*create: async (req, res) => {*/
-            let { created, option_name, price} = req.body;
+            let {option_name, price} = req.body;
 
             if( !option_name || !price ){
                 return res.status(200).json({
@@ -21,7 +21,7 @@ const optionProductController = {
             }
 
             let created = formatDate('yyyy-MM-dd hh:mm:ss', new Date());
-            
+
             let result = await optionModel.create({created, option_name, price}).then().catch(er => {
                 res.status(200).json({
                     status: 400,
