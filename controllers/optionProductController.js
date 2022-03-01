@@ -46,9 +46,6 @@ const optionProductController = {
     getOptions : async (req, res) => {
 
         optionModel.findAll({
-            where:{
-                option_name : option_name
-            },
             order : [['option_name','DESC']]
         })
 
