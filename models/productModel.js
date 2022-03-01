@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import db from '../config/databases';
 
-const product = db.define('produit', {
+const product = db.define('products', {
     created: {
         type: Sequelize.DATE,
         allowNull: false
@@ -20,7 +20,7 @@ const product = db.define('produit', {
     },
     quantity: {
         type: Sequelize.INTEGER,
-        allowNull: true
+        allowNull: false
     },
     category: {
         type: Sequelize.STRING,
