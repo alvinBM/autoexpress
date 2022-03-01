@@ -70,30 +70,37 @@ const commandController = {
     } catch (error) {
       return serverResponse(IcHttpStatusCode.BAD_REQUEST, error, null, res);
     }
-  }
+  },
+
+  /**
+   * Recuperer une commande (Irenge)
+   */
+  getCommande: async (req, res) => {},
+
+  /**Get commande by user */
+  getCommandeByUser: async (req, res) => {},
+
+  /**
+   * createCommande (Krame)
+   */
+  createCommande: async (req, res) => {
+    let { user_id, amount, panier } = req.body;
+
+    //Create commande
+    //if success, commande.id =>
+    //Parcourir panier => createPanier
+
+    panier.forEach(element => {
+      createPanier(element, commande.id);
+    });
+
+    return res.status(200).json({
+      status: 200,
+      message: "Commande creee avec succes"
+    });
+  },
+
+  createPanier: (panier, comanndeId) => {}
 };
 
 export default commandController;
-
-/**
- 
-
-  try {
-      const { id } = req.params;
-      const { status } = req.body;
-      commandModel.findOne({ where: { id } }).on("success", function(command) {
-        if (command) {
-          commandModel.update({ status }).success(function() {
-            return serverResponse(
-              IcHttpStatusCode.OK,
-              "req passed Successfully",
-              { success: true, command },
-              res
-            );
-          });
-        }
-      });
-    } catch (error) {
-      return serverResponse(IcHttpStatusCode.BAD_REQUEST, error, null, res);
-    }
- */

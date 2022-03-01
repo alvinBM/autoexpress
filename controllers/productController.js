@@ -10,22 +10,22 @@ const productController = {
     getProduits: (req, res) => {
             
         productModel.findAll({
-            order : [['id','DESC']]
+            order: [['id', 'DESC']]
         }).then((data) => {
             res.status(200).json({
-                status : 200,
-                produits : data
+                status: 200,
+                produits: data
             })
         }).catch((er) => {
             res.status(200).json({
-                status : 400,
-                produits : null,
-                message : "Impossible de recuperer les produits",
-                error : er
+                status: 400,
+                produits: null,
+                message: "Impossible de recuperer les produits",
+                error: er
             })
         });
 
-    }, 
+    },
 
     /**
      * Recuprer un cproduit (victore)
@@ -47,6 +47,14 @@ const productController = {
             status : 200,
             produits : ""
         })
+    },
+
+
+    /**
+     * Recuprer tous les produits by categori Id passer en param en solde (dieumerci)
+     */
+    getProduitsByCategorie : (req, res) => {
+
     },
 
      /**

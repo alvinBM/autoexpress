@@ -4,7 +4,10 @@ import commandCtrl from "../controllers/commandController";
 const router = express.Router();
 
 router.get("/", commandCtrl.getCommands);
-router.get("/:status", commandCtrl.getCommandByStatus);
+router.get("/byStatus/:status", commandCtrl.getCommandByStatus);
 router.put("/:id", commandCtrl.updateStatusCommand);
+router.get("/:id", commandCtrl.getCommande);
+router.get("/user/:id", commandCtrl.getCommandeByUser);
+router.post("/", commandCtrl.createCommande);
 
 export default router;
