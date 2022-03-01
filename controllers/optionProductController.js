@@ -47,10 +47,7 @@ const optionProductController = {
 
         optionModel.findAll({
             order : [['option_name','DESC']]
-        })
-
-
-        then((data) => {
+        }).then((data) => {
             res.status(200).json({
                 status : 200,
                 options : data
