@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import db from '../config/databases';
 
-const category = db.define('category', {
+const category = db.define('categories', {
     created: {
         type: Sequelize.DATE,
         allowNull: false
