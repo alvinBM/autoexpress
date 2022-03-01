@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import formatDate from 'date-format';
 import userModel from "../models/productModel";
+import product from '../models/productModel';
 
 
 const productController = {
@@ -32,10 +33,34 @@ const productController = {
      */
 
     getProduit: (req,res)=>{
-        res.status(200).json({
-            status : 200,
-            produits : ""
-        })
+
+        let {id} = req.params;
+        product.findOne({
+            where:{
+                id :parseInt(id)
+            }
+
+        }).then((data)=>{
+
+            if (data) {
+                res.status(200).json({
+                    status :200,
+                    product :data
+                })
+            
+            } else {
+                res.status(200).json({
+                    status: 400,
+                    message: "Produit introuvable"
+                })               
+            }     
+        }).catch(error=>
+            res.status(200).json({
+                status: 404,
+                message: "impossible de recuperer le produit",
+                error: error 
+            })
+            )
     },
 
     /**
@@ -43,10 +68,33 @@ const productController = {
      */
 
      getProduitsSoldes: (req,res)=>{
-        res.status(200).json({
-            status : 200,
-            produits : ""
-        })
+
+        product.findAll({
+            where:{
+                solde: 1
+            },
+            order : [['id','DESC']]
+        }).then((data)=>{
+
+            if (data) {
+                res.status(200).json({
+                    status :200,
+                    product :data
+                })
+            
+            } else {
+                res.status(200).json({
+                    status: 400,
+                    message: "Produits soldés introuvables"
+                })               
+            }     
+        }).catch(error=>
+            res.status(200).json({
+                status: 404,
+                message: "impossible de recuperer les produits soldés ",
+                // error: error 
+            })
+            )
     },
 
 
