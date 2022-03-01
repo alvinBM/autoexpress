@@ -17,6 +17,13 @@ const commandController = {
       commandes
     });
 
+  },
+
+  /**
+   * Recuperer une commande (Irenge)
+   */
+  getCommande : async (req, res) => {
+
   }
 };
 export default commandController;
