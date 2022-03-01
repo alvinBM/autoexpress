@@ -77,7 +77,7 @@ const categoryController = {
             if(data){
                 res.status(200).json({
                     status : 200,
-                    categorie :data
+                    categories :data
                 })
             }else{
                 res.status(200).json({
