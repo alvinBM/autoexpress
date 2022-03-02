@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import db from '../config/databases';
+import category from './categoryModel';
 
 const product = db.define('products', {
     created: {
@@ -38,5 +39,14 @@ const product = db.define('products', {
     timestamps: false,
     freezeTableName: true
 });
+
+product.belongsTo(category, {
+    as : "product_categorie",
+    foreignKey : "category"
+});
+
+category.hasMany(product, {
+    foreignKey : "category"
+})
 
 export default product;

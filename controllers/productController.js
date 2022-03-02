@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import formatDate from 'date-format';
 import productModel from "../models/productModel";
+import categoryModel from '../models/categoryModel';
 
 
 const productController = {
@@ -10,7 +11,12 @@ const productController = {
     getProduits: async(req, res) => {
 
         productModel.findAll({
-            order: [['id', 'DESC']]
+            order: [['id', 'DESC']],
+            include : [{
+                model : categoryModel,
+                as : 'product_categorie',
+                attributes : ['id','libelle']
+            }] 
         }).then((data) => {
             res.status(200).json({
                 status: 200,
