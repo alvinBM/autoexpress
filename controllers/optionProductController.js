@@ -44,28 +44,37 @@ const optionProductController = {
     /**
      * Recuprrer tous les options
      */
-    getOptions : async (req, res) => {
-
+    getOptions : async (req, res) => {                 
+        try {
+         const options =await optionModel.findAll();
+            return res.status(200).json({
+                status : 200,
+                options : options
+            })             
+        } catch (error) {
+            return   res.status(200).json({
+                status : 400,
+                options : null,
+                message : "Impossible de recuperer les options",
+                error : error.message
+            })            
+        }
+/*
         optionModel.findAll({
-            order : [['id','DESC']]
         }).then((data) => {
-            res.status(200).json({
+            return res.status(200).json({
                 status : 200,
                 options : data
             })
         }).catch((er) => {
-            res.status(200).json({
+            return   res.status(200).json({
                 status : 400,
                 options : null,
                 message : "Impossible de recuperer les options",
                 error : er
             })
         });
-        return res.status(200).json({
-            status: 200,
-            message: "get options"
-        });
-        
+     */
 
     },
 
