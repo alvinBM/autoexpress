@@ -1,12 +1,21 @@
-import express from 'express';
+import express from "express";
 import userRoute from "./userRoute";
-import optionRoute from "./optionRoute";
+import productRoute from "./productRoute"
 
+import commandRoute from "./commandRoute";
+import panierRoute from "./panierRoute";
+import optionRoute from "./optionRoute";
+import categoryRoute from "./categoryRoute"
 
 const router = express.Router();
 
+router.use("/user", userRoute);
+router.use("/command", commandRoute);
+router.use("/panier", panierRoute);
+router.use('/produits', productRoute);
+router.use("/options", optionRoute);
+router.use('/categories', categoryRoute);
 
-router.use('/user', userRoute);
-router.use('/options', optionRoute);
 
 export default router;
+
