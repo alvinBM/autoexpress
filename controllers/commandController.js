@@ -161,6 +161,26 @@ const commandController = {
     }
   },
 
+  /* EXEMPLE DE JSON A TESTER (J'ai laissé les champs qui se complètent automatiquement)
+    {"user_id":"1",
+    "status":"2",
+    "amount":"2000",
+    "panier":[      
+      {"quantity":"333", "price":"33", "options":"Ok", "product_id":"1"},
+      {"quantity":"444", "price":"444", "options":"Ok", "product_id":"2"}
+      ]}
+*/
+
+/*  OU SI NON
+
+    {"user_id":"1",
+    "status":"2",
+    "amount":"2000",
+    "panier":[      
+      {"user_id":"1", "quantity":"333", "price":"33", "options":"Ok", "product_id":"1", "commande_id":"23"},
+      {"user_id":"1", "quantity":"444", "price":"444", "options":"Ok", "product_id":"2", "commande_id":"23"}
+      ]}
+*/
 
 };
 
