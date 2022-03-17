@@ -83,24 +83,85 @@ const commandController = {
   /**
    * createCommande (Krame)
    */
+
   createCommande: async (req, res) => {
-    let { user_id, amount, panier } = req.body;
+    //Recuperation des donnees de la requete
+    const { amount, status, panier, user_id } = req.body;
 
-    //Create commande
-    //if success, commande.id =>
-    //Parcourir panier => createPanier
-
-    panier.forEach(element => {
-      createPanier(element, commande.id);
+    if (user_id == null || amount == null || status == null) {
+      return res.status(400).json({ 'error': 'Completez tous les champs SVP!' })
+    }
+    //Verification de l'existence de ce User
+    userModel.findOne({
+      attributes: ['id'],
+      where: { id: user_id }
+    }).then(function (user) {
+      //Message de retour effacé car posant des problèmes
+    }).catch(function (err) {
+      return res.status(500).json({ 'error': 'Cet utilisateur est introuvable, verifier lId' });
     });
 
-    return res.status(200).json({
-      status: 200,
-      message: "Commande creee avec succes"
-    });
+    let creation = await commandModel.create({
+      user_id: user_id,
+      amount: amount,
+      status: status,
+      created: new Date()
+    }).then()
+      .catch(er => {
+        res.status(200).json({
+          status: 400,
+          message: "Impossible de prendre cette commande, erreur inconnue"
+        });
+      });
+
+    function createPanier(panier, commandeId) {
+      var user_id2 = user_id;
+      var commande_id = commandeId;
+      var quantity = panier.quantity;
+      var price = panier.price;
+      var options = panier.options;
+      var product_id = panier.product_id;
+
+      if (price == null || product_id == null) {
+        return res.status(400).json({ 'error': 'Completez surtout le prix et lID des produits !' })
+      }
+
+
+      productModel.findOne({
+        attributes: ['id'],
+        where: { id: product_id }
+      }).then()
+        .catch(function (err) {
+          //Message de retour effacé car posant des problèmes
+        });
+
+      panierModel.create({
+        user_id: user_id2,
+        commande_id: commande_id,
+        quantity: quantity,
+        price: price,
+        options: options,
+        product_id: product_id,
+        created: new Date()
+      }).then().catch(er => {
+        res.status(200).json({
+          status: 400,
+          message: "Un produit mentionne est invalide, erreur inconnue"
+        });
+      });
+    }
+
+    if (creation) {
+      panier.forEach(function (Monpanier) {
+        createPanier(Monpanier, 1);
+      });
+      return res.status(200).json({
+        message: "Commandes crees"
+      });
+    }
   },
 
-  createPanier: (panier, comanndeId) => {}
+
 };
 
 export default commandController;
