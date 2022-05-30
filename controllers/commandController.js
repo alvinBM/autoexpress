@@ -1,4 +1,5 @@
 import { Op } from "sequelize";
+import command from "../models/commandModel";
 import commandModel from "../models/commandModel";
 import panierModel from "../models/panierModel";
 import { IcHttpStatusCode } from "../shared/constants/HttpStatus";
@@ -73,12 +74,95 @@ const commandController = {
   },
 
   /**
+   * Recuperer toutes les commandes (Irenge)
+   */
+  getCommands: async (req, res) => {
+    command
+      .findAll({
+        order:[["id", "DESC"]]
+      })
+      .then((data)=>{
+        res.status(200).json({
+          status: 200,
+          commande: data
+        });
+      })
+      .catch((er)=> {
+        res.status(200).json({
+          status:400,
+          commande: null,
+          message: "Impossible de recuperer les commandes",
+          error: er
+        });
+        
+      });
+  },
+
+   /**
    * Recuperer une commande (Irenge)
    */
-  getCommande: async (req, res) => {},
+
+   getCommand:(req,res)=>{
+    let {id} = req.params
+    command
+      .findOne({
+        where:{
+          id: parseInt(id)
+        }
+      })
+      .then((data)=> {
+        if(data){
+          res.status(200).json({
+            status:200,
+            command: data
+          });
+        }else {
+          res.status(200).json({
+            status:200,
+            message:"Commande introuvable"
+          });
+        }
+      })
+      .catch((error)=>
+      res.status(200).json({
+        status:404,
+        message: "Impossible de recuperer la commande",
+        error:error
+      })
+      );
+   },
 
   /**Get commande by user */
-  getCommandeByUser: async (req, res) => {},
+
+  getCommandeByUser: async (req, res) => {
+    let {id} = req.params
+    command
+      .findOne({
+        where:{
+          user_id: parseInt(id)
+        }
+      })
+      .then((data)=> {
+        if(data){
+          res.status(200).json({
+            status:200,
+            command: data
+          });
+        }else {
+          res.status(200).json({
+            status:200,
+            message:"Commande introuvable"
+          });
+        }
+      })
+      .catch((error)=>
+      res.status(200).json({
+        status:404,
+        message: "Impossible de recuperer la commande",
+        error:error
+      })
+      );
+   },
 
   /**
    * createCommande (Krame)
