@@ -12,7 +12,7 @@ const router = express.Router();
 router.use("/user", userRoute);
 router.use("/command", commandRoute);
 router.use("/panier", panierRoute);
-router.use('/produit', productRoute);
+router.use('/produits', productRoute);
 router.use("/options", optionRoute);
 router.use('/categories', categoryRoute);
 

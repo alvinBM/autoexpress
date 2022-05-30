@@ -3,6 +3,7 @@ import app from "./app"
 import 'dotenv/config'
 import database from './config/databases';
 
+
 // database connexion test
 const testDbConnexion = async() =>{
     try {
