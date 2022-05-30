@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 import formatDate from "date-format";
 import userModel from "../models/productModel";
 import product from "../models/productModel";
+import e from "cors";
 
 const productController = {
   /**
@@ -15,7 +16,7 @@ const productController = {
     if (!name || !description || !price || !quantity || !category) {
       return res.status(200).json({
         status: 400,
-        message: "Veuillez remplir tous les champs obligatoire svp"
+        message: "Veuillez remplir tous les champs obligatoire svp",
       });
     }
     try {
@@ -28,21 +29,21 @@ const productController = {
         quantity,
         category,
         solde,
-        remise
+        remise,
       });
 
       if (result) {
         return res.status(201).json({
           status: 201,
           message: "Produit créé avec succès",
-          result
+          result,
         });
       }
     } catch (error) {
       return res.status(400).json({
         status: 400,
         message: error.message,
-        result: null
+        result: null,
       });
     }
   },
@@ -52,12 +53,12 @@ const productController = {
   getProduits: (req, res) => {
     product
       .findAll({
-        order: [["id", "DESC"]]
+        order: [["id", "DESC"]],
       })
       .then((data) => {
         res.status(200).json({
           status: 200,
-          produits: data
+          produits: data,
         });
       })
       .catch((er) => {
@@ -65,7 +66,7 @@ const productController = {
           status: 400,
           produits: null,
           message: "Impossible de recuperer les produits",
-          error: er
+          error: er,
         });
       });
   },
@@ -79,19 +80,19 @@ const productController = {
     product
       .findOne({
         where: {
-          id: parseInt(id)
-        }
+          id: parseInt(id),
+        },
       })
       .then((data) => {
         if (data) {
           res.status(200).json({
             status: 200,
-            product: data
+            product: data,
           });
         } else {
           res.status(200).json({
             status: 400,
-            message: "Produit introuvable"
+            message: "Produit introuvable",
           });
         }
       })
@@ -99,7 +100,7 @@ const productController = {
         res.status(200).json({
           status: 404,
           message: "impossible de recuperer le produit",
-          error: error
+          error: error,
         })
       );
   },
@@ -112,27 +113,27 @@ const productController = {
     product
       .findAll({
         where: {
-          solde: 1
+          solde: 1,
         },
-        order: [["id", "DESC"]]
+        order: [["id", "DESC"]],
       })
       .then((data) => {
         if (data) {
           res.status(200).json({
             status: 200,
-            product: data
+            product: data,
           });
         } else {
           res.status(200).json({
             status: 400,
-            message: "Produits soldés introuvables"
+            message: "Produits soldés introuvables",
           });
         }
       })
       .catch((error) =>
         res.status(200).json({
           status: 404,
-          message: "impossible de recuperer les produits soldés "
+          message: "impossible de recuperer les produits soldés ",
           // error: error
         })
       );
@@ -142,13 +143,34 @@ const productController = {
    * Recuprer tous les produits by categori Id passer en param en solde (dieumerci)
    */
   getProduitsByCategorie: (req, res) => {
-    let { libelle } = req.params;
-    product.findAll({
-      where: {
-        category: parseInt(libelle)
-      }
-    });
-  }
+    let { id } = req.params;
+    product
+      .findAll({
+        where: {
+          category: parseInt(id),
+        },
+      })
+      .then((data) => {
+        if (data) {
+          res.status(200).json({
+            status: 200,
+            product: data,
+          });
+        } else {
+          res.status(200).json({
+            status: 400,
+            message: "Produit de cette categorie introuvable",
+          });
+        }
+      })
+      .catch((error) => {
+        res.status(200).json({
+          status: 404,
+          message: "impossible de recuperer le produit",
+          error: error,
+        });
+      });
+  },
 };
 
 export default productController;
