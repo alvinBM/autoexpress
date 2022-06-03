@@ -2,10 +2,15 @@
   "name": "autoexpress",
   "version": "1.0.0",
   "description": "API de autoexpress - Application de vente des vehicules et motos",
-  "main": "server.js",
+  "main": "dist/index.js",
+  "engines":{
+"node": "16.0.0",
+"npm":"7.10.0"
+  },
   "scripts": {
-    "start": "nodemon server.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+     "build": "react-scripts build",
+    "start": "node dist/index.js" ,
+    "dev": "nodemon server.js --exec babel-node"
   },
   "author": "Tech2-2022",
   "license": "ISC",
@@ -26,6 +31,7 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.6",
     "sequelize": "^6.17.0",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-cli": "^6.4.1",
+    "serve": "^13.0.2"
   }
 }
