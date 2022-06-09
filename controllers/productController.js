@@ -141,13 +141,26 @@ const productController = {
   /**
    * Recuprer tous les produits by categori Id passer en param en solde (dieumerci)
    */
-  getProduitsByCategorie: (req, res) => {
-    let { libelle } = req.params;
-    product.findAll({
-      where: {
-        category: parseInt(libelle)
-      }
-    });
+  getProduitsByCategorie: async (req, res) => {
+    let { id } = req.params;
+    try {
+      const produits = await product.findAll({
+        where: {
+          category: parseInt(id)
+        }
+      });
+      return res.status(200).json({
+        status: 200,
+        message: "successfully ",
+        produits
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        message: error.message
+        // error: error
+      });
+    }
   }
 };
 
