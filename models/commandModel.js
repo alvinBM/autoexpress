@@ -20,6 +20,10 @@ const command = db.define(
     status: {
       type: Sequelize.INTEGER,
       allowNull: false
+    },
+    panier: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   },
   {
@@ -28,6 +32,6 @@ const command = db.define(
   }
 );
 
-command.hasMany(panier, {foreignKey: 'commande_id'})
+command.hasMany(panier, { foreignKey: "commande_id" });
 
 export default command;
