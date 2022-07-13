@@ -9,7 +9,7 @@ router.put("/:id", commandCtrl.updateStatusCommand);
 router.get("/:id", commandCtrl.getCommande);
 router.get("/user/:id", commandCtrl.getCommandeByUser);
 router.post("/", commandCtrl.createCommande);
-router.post("/create/", commandCtrl.create);
+router.post("/create/", commandCtrl.createCommandV2);
 // router.post("/v2/", commandCtrl.createCommande);
 
 export default router;

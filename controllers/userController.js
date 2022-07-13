@@ -10,7 +10,6 @@ const userController = {
    */
   login: async (req, res) => {
     let { identifiant, password } = req.body;
-
     let user = await userModel
       .findOne({
         where: {
@@ -20,7 +19,7 @@ const userController = {
       .then()
       .catch((er) => {
         console.error(er);
-        return res.status(200).json({
+        return res.status(400).json({
           status: 400,
           message: er
         });
@@ -48,6 +47,7 @@ const userController = {
           status: 200,
           loged: true,
           token,
+          message: "Vous etes connectés!",
           user: {
             ...user.dataValues,
             password: ""
@@ -80,6 +80,15 @@ const userController = {
       });
     }
 
+    let user_ = await userModel.findOne({
+      where: { phone }
+    });
+    if (user_) {
+      return res.status(200).json({
+        status: 400,
+        message: "Oops, Ce numero a deja été utilisé. "
+      });
+    }
     password = await bcrypt.hash(password, 10);
     let created = formatDate("yyyy-MM-dd hh:mm:ss", new Date());
 
@@ -94,8 +103,8 @@ const userController = {
       });
 
     if (result) {
-      return res.status(200).json({
-        status: 200,
+      return res.status(201).json({
+        status: 201,
         message: "Utilisateur créé avec succès",
         result
       });

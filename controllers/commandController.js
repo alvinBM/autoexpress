@@ -1,39 +1,59 @@
 import { Op } from "sequelize";
 import commandModel from "../models/commandModel";
 import panierModel from "../models/panierModel";
+import UserModel from "../models/userModel";
 import { IcHttpStatusCode } from "../shared/constants/HttpStatus";
 import serverResponse from "../shared/interceptors/serverResponse";
 
 const commandController = {
-  create: async (req, res) => {
+  createCommandV2: async (req, res) => {
     try {
-      /*  let commands = await commandModel.findAll({ include: [panierModel] });
-      return serverResponse(
-        IcHttpStatusCode.OK,
-        "test works Successfully",
-        { success: true, commands },
-        res
-      ); */
+      const { amount, status, panier, user_id } = req.body;
+      const u = await UserModel.findOne({
+        where: { id: user_id }
+      });
+      if (!u) {
+        return res.status(400).json({
+          errors: {
+            message: "Something went wrong",
+            error: "no user found"
+          }
+        });
+      }
 
-      const { amount, status, user, panier } = req.body;
-      const res_ = await commandModel.create({
+      const command = await commandModel.create({
         amount,
         status,
-        user_id: user,
-        panier,
+        user_id,
+        panier: "",
         created: new Date()
       });
-
-      return serverResponse(
-        IcHttpStatusCode.OK,
-        "req passed Successfully",
-        { success: true, res_ },
-        res
-      );
+      if (command) {
+        panier.map(async (item) => {
+          await panierModel.create({
+            user_id,
+            commande_id: command.id,
+            price: item.price,
+            quantity: item.quantity,
+            product_id: item.product_id,
+            options: item.options,
+            created: new Date()
+          });
+        });
+      }
+      return res.status(200).json({
+        results: {
+          success: true,
+          message: "Commande et panier crées",
+          command
+        }
+      });
     } catch (error) {
-      return serverResponse(IcHttpStatusCode.BAD_REQUEST, error.message, {
-        success: false,
-        err: "error"
+      return res.status(400).json({
+        errors: {
+          message: "Something went wrong",
+          error: error
+        }
       });
     }
   },
